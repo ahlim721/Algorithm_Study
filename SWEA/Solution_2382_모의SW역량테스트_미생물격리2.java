@@ -1,22 +1,18 @@
-package day0405;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
+import java.util.Comparator;
 import java.util.StringTokenizer;
 
-public class Solution_2382_¸ğÀÇSW¿ª·®Å×½ºÆ®_¹Ì»ı¹°°İ¸®2 {
+public class Solution_2382_ëª¨ì˜SWì—­ëŸ‰í…ŒìŠ¤íŠ¸_ë¯¸ìƒë¬¼ê²©ë¦¬2 {
 	
 	static class MicroCell {
-		int x, y, cnt, rcnt, dir;
+		int x, y, cnt, dir;
 		
-		MicroCell(int x, int y, int cnt, int rcnt, int dir) {
+		MicroCell(int x, int y, int cnt, int dir) {
 			this.x = x;
 			this.y = y;
 			this.cnt = cnt;
-			this.rcnt = rcnt;
 			this.dir = dir;
 		}
 	}
@@ -27,16 +23,17 @@ public class Solution_2382_¸ğÀÇSW¿ª·®Å×½ºÆ®_¹Ì»ı¹°°İ¸®2 {
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int tc = Integer.parseInt(br.readLine());
+		StringBuilder sb = new StringBuilder();
+		int tc = Integer.parseInt(br.readLine().trim());
 		for(int t=1; t<=tc; t++) {
-			StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+			StringTokenizer st = new StringTokenizer(br.readLine().trim(), " ");
 			n = Integer.parseInt(st.nextToken());
 			int m = Integer.parseInt(st.nextToken());
 			int k = Integer.parseInt(st.nextToken());
 			
 			int[][] map = new int[n][n];
 			
-			// ¾àÇ° Ã³¸®¸¦ ÃÊ±âÈ­
+			// ì•½í’ˆ ì²˜ë¦¬ë¥¼ ì´ˆê¸°í™”
 			for(int i=0; i<n; i++) {
 				map[0][i] = -1;
 				map[i][0] = -1;
@@ -47,26 +44,57 @@ public class Solution_2382_¸ğÀÇSW¿ª·®Å×½ºÆ®_¹Ì»ı¹°°İ¸®2 {
 			ArrayList<MicroCell> list = new ArrayList<>();
 			
 			for(int i=0; i<k; i++) {
-				st = new StringTokenizer(br.readLine(), " ");
+				st = new StringTokenizer(br.readLine().trim(), " ");
 				int x = Integer.parseInt(st.nextToken());
 				int y = Integer.parseInt(st.nextToken());
 				int cnt = Integer.parseInt(st.nextToken());
 				int dir = Integer.parseInt(st.nextToken());
 				
-				list.add(new MicroCell(x, y, cnt, cnt, dir));
+				list.add(new MicroCell(x, y, cnt, dir));
 				
 				map[x][y] = cnt;
 			}
-			
-			// for(int i=0; i<n; i++) System.out.println(Arrays.toString(map[i]));
-			
+						
 			while(m != 0) {
 				for(MicroCell mc : list) {
 					moveCell(map, mc);
 				}
+				
+				list.sort(new Comparator<MicroCell>() {
+					@Override
+					public int compare(MicroCell o1, MicroCell o2) {
+						if(o1.x == o2.x && o1.y == o2.y) {
+							return o2.cnt - o1.cnt;
+						}
+						else if(o1.x == o2.x) return o1.y - o2.y;
+						else return o1.x - o2.x;
+					}
+				});
+				
+				ArrayList<MicroCell> tmp = new ArrayList<MicroCell>();
+				for(MicroCell mc : list) {
+					if(!tmp.isEmpty()) {
+						if(tmp.get(tmp.size()-1).x == mc.x && tmp.get(tmp.size()-1).y == mc.y) {
+							tmp.get(tmp.size()-1).cnt += mc.cnt;
+						} else 
+							tmp.add(mc);
+					}
+					else {
+						tmp.add(mc);
+					}
+				}
+				list = tmp;
+		
+				m--;
 			}
+
+			int ans = 0;
+			for(MicroCell mm : list)
+				ans += mm.cnt;
 			
+			sb.append("#").append(t).append(" ").append(ans).append("\n");
 		}
+		System.out.print(sb);
 	}
 
 	private static void moveCell(int[][] map, MicroCell mc) {
@@ -75,9 +103,6 @@ public class Solution_2382_¸ğÀÇSW¿ª·®Å×½ºÆ®_¹Ì»ı¹°°İ¸®2 {
 		if(mc.x == 0 || mc.y == 0 || mc.x == n-1 || mc.y == n-1) {
 			mc.cnt /= 2;
 			mc.dir = mc.dir == 1 ? 2 : mc.dir == 2 ? 1 : mc.dir == 3 ? 4 : 3;
-		}
-		else if(map[mc.x][mc.y] != 0) {
-			
 		}
 	}
 
