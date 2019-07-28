@@ -1,15 +1,21 @@
 # Algorithm_Study
 
 * BOJ
- > 💻 <Baekjoon Online Judge>
- > ✅ acmicpc.net
- > 💁🏻‍♀️ `ahlim721`
-  
+
+  > 💻 Baekjoon Online Judge
+  >
+  > ✅ acmicpc.net
+  >
+  > 💁🏻‍♀️ `ahlim721`
 * SWEA
- > 💻 SoftWare Expert Academy
- > ✅ swexpertacademy.com
- > 💁🏻‍♀️ ahlim721@gmail.com `anna`
- 
+
+  > 💻 SoftWare Expert Academy
+  >
+  > ✅ swexpertacademy.com
+  >
+  > 💁🏻‍♀️ ahlim721@gmail.com => `anna`
 * Jungol
- > 💻 정보 올림피아드
- > ✅ jungol.co.kr
+
+  > 💻 정보 올림피아드
+  >
+  > ✅ jungol.co.kr
